@@ -1,26 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://7k81egc5b2va"]
+[gd_scene load_steps=2 format=3 uid="uid://7k81egc5b2va"]
 
 [ext_resource type="Script" uid="uid://bf5rqo731sapw" path="res://scripts/world/game.gd" id="1_w44h4"]
-[ext_resource type="Script" uid="uid://3464yub88grv" path="res://scripts/player/player.gd" id="2_3iwug"]
-[ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://art/icon.svg" id="3_r5nxa"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h30v7"]
-size = Vector2(127, 127)
-
-[node name="game" type="Node2D"]
+[node name="Game" type="Node2D"]
 script = ExtResource("1_w44h4")
-
-[node name="player" type="CharacterBody2D" parent="."]
-position = Vector2(275, 227)
-script = ExtResource("2_3iwug")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
-position = Vector2(0.5, -0.5)
-shape = SubResource("RectangleShape2D_h30v7")
-
-[node name="Sprite2D" type="Sprite2D" parent="player"]
-texture = ExtResource("3_r5nxa")
 
 [node name="JoinButton" type="Button" parent="."]
 offset_right = 8.0
