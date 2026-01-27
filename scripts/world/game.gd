@@ -43,6 +43,10 @@ func get_positions():
 	"""
 	Returns a dictionary containing any game state that needs to be
 	kept in sync between the host and the client(s).
+
+	WARNING: Make sure the data structure here stays in sync with the one
+	used in set_positions!
+	(PC: I sure wish gdscript let us define our own types. :/)
 	"""
 
 	return {"player_position": $Player.position}
@@ -55,6 +59,10 @@ func set_positions(new_state) -> void:
 	corresponding positions.
 
 	This should be called on the client with data obtained on the host.
+
+	WARNING: Make sure the data structure here stays in sync with the one
+	returned by get_positions!
+	(PC: I sure wish gdscript let us define our own types. :/)
 	"""
 	print(new_state)
 	$Player.position = new_state["player_position"]
