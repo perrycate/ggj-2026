@@ -5,19 +5,22 @@
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://art/icon.svg" id="3_r5nxa"]
 [ext_resource type="PackedScene" uid="uid://qwvh0nx7hhec" path="res://scenes/camera/camera.tscn" id="4_r5nxa"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h30v7"]
-size = Vector2(127, 127)
-
-[node name="game" type="Node2D"]
+[node name="Game" type="Node2D"]
 script = ExtResource("1_w44h4")
 
-[node name="player" type="CharacterBody2D" parent="."]
-position = Vector2(108, 102)
-script = ExtResource("2_3iwug")
+[node name="JoinButton" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 64
+text = "Join"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
-position = Vector2(0.5, -0.5)
-shape = SubResource("RectangleShape2D_h30v7")
+[node name="HostButton" type="Button" parent="."]
+offset_left = 161.0
+offset_right = 312.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 64
+text = "Host
+"
 
 [node name="Sprite2D" type="Sprite2D" parent="player"]
 texture = ExtResource("3_r5nxa")
@@ -29,3 +32,5 @@ polygon = PackedVector2Array(-143.3205, -164.8793, -137.87616, 152.65439, 0.4989
 uv = PackedVector2Array(-136, -58, -136, 148, 0.49890137, 152.65439, -2.4293213, -167.98352)
 
 [node name="Camera" parent="." instance=ExtResource("4_r5nxa")]
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
