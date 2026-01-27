@@ -10,12 +10,11 @@ const MAX_PEERS = 1
 
 @export var is_host = false
 
-
 # We cache the previous state to avoid sending more game updates
 # than necessary over the network.
 var prev_state = {}
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if !is_host:
 		return
 
