@@ -11,7 +11,7 @@ size = Vector2(127, 127)
 script = ExtResource("1_w44h4")
 
 [node name="player" type="CharacterBody2D" parent="."]
-position = Vector2(282, 80)
+position = Vector2(275, 227)
 script = ExtResource("2_3iwug")
 metadata/_edit_group_ = true
 
@@ -28,4 +28,13 @@ offset_bottom = 8.0
 theme_override_font_sizes/font_size = 64
 text = "Join"
 
+[node name="HostButton" type="Button" parent="."]
+offset_left = 161.0
+offset_right = 312.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 64
+text = "Host
+"
+
 [connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
