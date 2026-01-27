@@ -1,15 +1,24 @@
 extends Node2D
 
+
 var player: PackedScene = preload("res://scenes/world/player.tscn")
+var cameras: Array[Node2D] = []
+
+@onready var cameras_node: Node2D = $Cameras
 
 # TODO add mechanism for getting/sharing this.
 const server_address = "127.0.0.1"
 const PORT = 5000
 const MAX_PEERS = 1
 
+@export var game_node_path: NodePath
 @export var is_watcher = false
 
 func _ready():
+	for camera in cameras_node.get_children():
+		if camera is Camera:
+			cameras.append(camera)
+
 	pass
 
 func _on_join_button_pressed():
