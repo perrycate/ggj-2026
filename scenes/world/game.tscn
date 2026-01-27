@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://7k81egc5b2va"]
+[gd_scene load_steps=6 format=3 uid="uid://7k81egc5b2va"]
 
 [ext_resource type="Script" uid="uid://bf5rqo731sapw" path="res://scripts/world/game.gd" id="1_w44h4"]
 [ext_resource type="Script" uid="uid://3464yub88grv" path="res://scripts/player/player.gd" id="2_3iwug"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://art/icon.svg" id="3_r5nxa"]
+[ext_resource type="PackedScene" uid="uid://qwvh0nx7hhec" path="res://scenes/camera/camera.tscn" id="4_r5nxa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h30v7"]
 size = Vector2(127, 127)
@@ -11,7 +12,7 @@ size = Vector2(127, 127)
 script = ExtResource("1_w44h4")
 
 [node name="player" type="CharacterBody2D" parent="."]
-position = Vector2(282, 80)
+position = Vector2(108, 102)
 script = ExtResource("2_3iwug")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
@@ -20,3 +21,11 @@ shape = SubResource("RectangleShape2D_h30v7")
 
 [node name="Sprite2D" type="Sprite2D" parent="player"]
 texture = ExtResource("3_r5nxa")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(639, 294)
+scale = Vector2(1.102069, 1.0915226)
+polygon = PackedVector2Array(-143.3205, -164.8793, -137.87616, 152.65439, 0.49890137, 152.65439, -2.4293213, -167.98352)
+uv = PackedVector2Array(-136, -58, -136, 148, 0.49890137, 152.65439, -2.4293213, -167.98352)
+
+[node name="Camera" parent="." instance=ExtResource("4_r5nxa")]
