@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm0nx058xtv3u"]
+[gd_scene load_steps=7 format=3 uid="uid://bm0nx058xtv3u"]
 
 [ext_resource type="Script" uid="uid://dahy7hpota4ua" path="res://scripts/watcher/watcher.gd" id="1_ilq2x"]
 [ext_resource type="Script" uid="uid://bhd1vsmbdtydl" path="res://scripts/states/state_machine.gd" id="1_s0oms"]
@@ -6,11 +6,14 @@
 [ext_resource type="Script" uid="uid://bwdfw7madvuyd" path="res://scripts/watcher/switching.gd" id="3_ilq2x"]
 [ext_resource type="Script" uid="uid://bd7bas20njuwq" path="res://scripts/watcher/stunned.gd" id="4_mrnq6"]
 
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ilq2x"]
+
 [node name="Watcher" type="Node2D"]
 script = ExtResource("1_ilq2x")
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_s0oms")
+initial_state = NodePath("Switching")
 
 [node name="Controlling" type="Node" parent="StateMachine"]
 script = ExtResource("2_x80ag")
@@ -20,3 +23,7 @@ script = ExtResource("3_ilq2x")
 
 [node name="Stunned" type="Node" parent="StateMachine"]
 script = ExtResource("4_mrnq6")
+
+[node name="TestVisibility" type="Sprite2D" parent="."]
+scale = Vector2(0.030273438, 0.032226563)
+texture = SubResource("NoiseTexture2D_ilq2x")

@@ -13,8 +13,8 @@ func _process(_delta: float):
 
 func increment_camera_index(increment_value: int):
 	current_camera_index += increment_value
-	if current_camera_index > Game.cameras.size():
+	if current_camera_index > Game.camera_list.size():
 		current_camera_index = 1
 	elif current_camera_index < 1:
-		current_camera_index = Game.cameras.size()
+		current_camera_index = Game.camera_list.size()
 

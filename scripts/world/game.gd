@@ -3,7 +3,7 @@ extends Node2D
 
 var player: PackedScene = preload("res://scenes/world/player.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
-var cameras: Array[Node2D] = []
+var camera_list: Array[Camera] = []
 var is_player: bool = false
 
 @onready var cameras_node: Node2D = $Cameras
@@ -17,10 +17,6 @@ const MAX_PEERS = 1
 @export var is_watcher = false
 
 func _ready():
-	for camera in cameras_node.get_children():
-		if camera is Camera:
-			cameras.append(camera)
-
 	pass
 
 func _on_join_button_pressed():
@@ -51,3 +47,6 @@ func _on_host_button_pressed():
 	p.is_active = true
 	
 	get_tree().current_scene.add_child(p)
+
+#func get_camera_list():
+	

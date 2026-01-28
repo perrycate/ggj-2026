@@ -19,6 +19,10 @@ config/icon="res://art/icon.svg"
 
 Game="*res://scripts/world/game.gd"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [file_customization]
 
 folder_colors={
