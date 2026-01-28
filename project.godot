@@ -15,6 +15,10 @@ run/main_scene="uid://7k81egc5b2va"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://art/icon.svg"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [file_customization]
 
 folder_colors={
