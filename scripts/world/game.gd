@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var player: PackedScene = preload("res://scenes/world/player.tscn")
+var player: PackedScene = preload("res://scenes/player/player.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 var camera_list: Array[Camera] = []
 var is_player: bool = false
