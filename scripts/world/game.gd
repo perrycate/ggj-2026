@@ -2,6 +2,10 @@ extends Node2D
 
 var player: PackedScene = preload("res://scenes/world/player.tscn")
 
+# To work around wonky network discovery issues, for now.
+# TODO: Remove this before playtesting on multiple computers.
+const IS_LOCAL_ONLY = true
+
 const DEFAULT_PORT = 4267
 
 const MAX_PEERS = 1
@@ -67,6 +71,9 @@ func set_positions(new_state) -> void:
 	$Player.position = new_state["player_position"]
 
 func _on_join_button_pressed():
+	if IS_LOCAL_ONLY:
+		establish_connection("127.0.0.1")
+		return
 	$Network.search_for_host()
 
 func _on_host_button_pressed():
@@ -80,8 +87,9 @@ func _on_host_button_pressed():
 
 	print("hosting")
 
-	# Broadcast in search of peers.
-	$Network.search_for_clients()
+	if !IS_LOCAL_ONLY:
+		# Broadcast in search of peers.
+		$Network.search_for_clients()
 
 	var p = player.instantiate()
 	p.is_active = true
