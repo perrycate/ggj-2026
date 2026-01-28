@@ -2,7 +2,9 @@ extends Node2D
 
 
 var player: PackedScene = preload("res://scenes/world/player.tscn")
+var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 var cameras: Array[Node2D] = []
+var is_player: bool = false
 
 @onready var cameras_node: Node2D = $Cameras
 
@@ -31,6 +33,8 @@ func _on_join_button_pressed():
 
 	print("joined")
 	get_tree().current_scene.add_child(player.instantiate())
+	get_tree().current_scene.add_child(watcher.instantiate())
+
 
 func _on_host_button_pressed():
 	var peer = ENetMultiplayerPeer.new()
@@ -43,6 +47,7 @@ func _on_host_button_pressed():
 	print("hosting")
 
 	var p = player.instantiate()
+	is_player = true
 	p.is_active = true
 	
 	get_tree().current_scene.add_child(p)

@@ -16,10 +16,10 @@ func update(_delta: float):
 	if _switch_timer <= 0:
 		transition.emit(self, "WatcherControlling", NO_MESSAGE)
 
-func switch_cameras(new_camera_index) -> void:
-	if new_camera_index == null or new_camera_index == 0:
+func switch_cameras(increment_value) -> void:
+	if increment_value == null or increment_value == 0:
 		base_node.current_camera = Game.cameras.front()
 		base_node.current_camera_index = 1
 	else:
-		base_node.current_camera = Game.cameras[new_camera_index]
+		base_node.increment_camera_index(increment_value)
 
