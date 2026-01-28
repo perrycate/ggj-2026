@@ -19,7 +19,7 @@ enum State {
 	CONNECTED,
 }
 
-var current_state: State = State.INACTIVE
+var current_state = State.INACTIVE
 var socket: PacketPeerUDP
 
 func _process(_delta: float) -> void:
