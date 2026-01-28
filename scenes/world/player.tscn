@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhkljttu1fkh7"]
+[gd_scene load_steps=5 format=3 uid="uid://dhkljttu1fkh7"]
 
 [ext_resource type="Script" uid="uid://3464yub88grv" path="res://scripts/player/player.gd" id="1_l3o4k"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://art/icon.svg" id="2_hqqc5"]
+[ext_resource type="Script" uid="uid://bhd1vsmbdtydl" path="res://scripts/states/state_machine.gd" id="3_hqqc5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h30v7"]
 size = Vector2(127, 127)
@@ -16,3 +17,7 @@ shape = SubResource("RectangleShape2D_h30v7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_hqqc5")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_hqqc5")
+metadata/_custom_type_script = "uid://bhd1vsmbdtydl"

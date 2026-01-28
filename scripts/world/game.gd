@@ -1,6 +1,12 @@
 extends Node2D
 
+
 var player: PackedScene = preload("res://scenes/world/player.tscn")
+var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
+var camera_list: Array[Camera] = []
+var is_player: bool = false
+
+@onready var cameras_node: Node2D = $Cameras
 
 # To work around wonky network discovery issues, for now.
 # TODO: Remove this before playtesting on multiple computers.
@@ -10,6 +16,8 @@ const DEFAULT_PORT = 4267
 
 const MAX_PEERS = 1
 
+@export var game_node_path: NodePath
+@export var is_watcher = false
 # We cache the previous state to avoid sending more game updates
 # than necessary over the network.
 var prev_state = {}
@@ -23,6 +31,8 @@ func _physics_process(_delta: float) -> void:
 
 	call_deferred("broadcast_game_state")
 
+	print("joined")
+	get_tree().current_scene.add_child(player.instantiate())
 
 func broadcast_game_state() -> void:
 	"""
@@ -92,6 +102,7 @@ func _on_host_button_pressed():
 		$Network.search_for_clients()
 
 	var p = player.instantiate()
+	is_player = true
 	p.is_active = true
 	$Network.is_host = true
 	

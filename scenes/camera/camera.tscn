@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://qwvh0nx7hhec"]
+
+[ext_resource type="Script" uid="uid://d2b73pyf7btsx" path="res://scripts/camera/camera.gd" id="1_6m2n3"]
+[ext_resource type="Texture2D" uid="uid://ducafcw732aa5" path="res://art/camera.png" id="2_0jiuk"]
+[ext_resource type="Script" uid="uid://bhd1vsmbdtydl" path="res://scripts/states/state_machine.gd" id="3_0jiuk"]
+[ext_resource type="Script" uid="uid://bstp46uc1rhmo" path="res://scripts/camera/infrared.gd" id="4_4ph7v"]
+[ext_resource type="Script" uid="uid://cxatfi0jqfubi" path="res://scripts/camera/visual.gd" id="5_k3vso"]
+[ext_resource type="Script" uid="uid://pdp7tipda741" path="res://scripts/camera/acoustic.gd" id="6_kuc5t"]
+[ext_resource type="Script" uid="uid://d3evpi8im7jre" path="res://scripts/camera/switching.gd" id="7_acrws"]
+
+[node name="Camera" type="CharacterBody2D"]
+script = ExtResource("1_6m2n3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(11, 0)
+texture = ExtResource("2_0jiuk")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_0jiuk")
+metadata/_custom_type_script = "uid://bhd1vsmbdtydl"
+
+[node name="Infrared" type="Node" parent="StateMachine"]
+script = ExtResource("4_4ph7v")
+
+[node name="Visual" type="Node" parent="StateMachine"]
+script = ExtResource("5_k3vso")
+
+[node name="Acoustic" type="Node" parent="StateMachine"]
+script = ExtResource("6_kuc5t")
+
+[node name="Switching" type="Node" parent="StateMachine"]
+script = ExtResource("7_acrws")
