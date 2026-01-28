@@ -2,20 +2,19 @@ extends Node2D
 
 var player: PackedScene = preload("res://scenes/world/player.tscn")
 
-# TODO add mechanism for getting/sharing this.
-const server_address = "127.0.0.1"
-const PORT = 5000
+const DEFAULT_PORT = 4267
+
 const MAX_PEERS = 1
-
-
-@export var is_host = false
 
 # We cache the previous state to avoid sending more game updates
 # than necessary over the network.
 var prev_state = {}
 
+func _ready() -> void:
+	OS.set_environment("GODOT_VERBOSE", "1")
+
 func _physics_process(_delta: float) -> void:
-	if !is_host:
+	if !$Network.is_host:
 		return
 
 	call_deferred("broadcast_game_state")
@@ -67,21 +66,13 @@ func set_positions(new_state) -> void:
 	print(new_state)
 	$Player.position = new_state["player_position"]
 
-
 func _on_join_button_pressed():
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(server_address, PORT)
-	if error:
-		return error
-
-	multiplayer.multiplayer_peer = peer
-
-	print("joined")
-	get_tree().current_scene.add_child(player.instantiate())
+	$Network.search_for_host()
 
 func _on_host_button_pressed():
+	# Create server.
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(PORT, MAX_PEERS)
+	var error = peer.create_server(DEFAULT_PORT, MAX_PEERS)
 	if error:
 		return error
 
@@ -89,8 +80,23 @@ func _on_host_button_pressed():
 
 	print("hosting")
 
+	# Broadcast in search of peers.
+	$Network.search_for_clients()
+
 	var p = player.instantiate()
 	p.is_active = true
-	is_host = true
+	$Network.is_host = true
 	
 	get_tree().current_scene.add_child(p)
+
+func establish_connection(server_address: String) -> int:
+	var peer = ENetMultiplayerPeer.new()
+	var error = peer.create_client(server_address, DEFAULT_PORT)
+	if error:
+		return error
+
+	multiplayer.multiplayer_peer = peer
+	get_tree().current_scene.add_child(player.instantiate())
+	print("joined")
+
+	return 0
