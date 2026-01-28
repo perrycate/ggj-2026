@@ -101,7 +101,6 @@ func _on_host_button_pressed():
 
 	var p = player.instantiate()
 	is_player = true
-	p.is_active = true
 	network.is_host = true
 	
 	get_tree().current_scene.add_child(p)
