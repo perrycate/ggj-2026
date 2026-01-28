@@ -1,6 +1,6 @@
 extends PlayerState
 
-func update(delta: float) -> void:
+func physics_update(delta: float) -> void:
 	if Input.get_vector("move_left", "move_right", "move_up", "move_down") != Vector2.ZERO:
 		transition.emit(self, "Moving")
 		return
