@@ -7,6 +7,7 @@ var camera_list: Array[Camera] = []
 var is_player: bool = false
 
 @onready var cameras_node: Node2D = $Cameras
+@onready var network: Node = $Network
 
 # To work around wonky network discovery issues, for now.
 # TODO: Remove this before playtesting on multiple computers.
@@ -26,13 +27,10 @@ func _ready() -> void:
 	OS.set_environment("GODOT_VERBOSE", "1")
 
 func _physics_process(_delta: float) -> void:
-	if !$Network.is_host:
+	if !network || !network.is_host:
 		return
 
 	call_deferred("broadcast_game_state")
-
-	print("joined")
-	get_tree().current_scene.add_child(player.instantiate())
 
 func broadcast_game_state() -> void:
 	"""
@@ -84,7 +82,7 @@ func _on_join_button_pressed():
 	if IS_LOCAL_ONLY:
 		establish_connection("127.0.0.1")
 		return
-	$Network.search_for_host()
+	network.search_for_host()
 
 func _on_host_button_pressed():
 	# Create server.
@@ -99,12 +97,12 @@ func _on_host_button_pressed():
 
 	if !IS_LOCAL_ONLY:
 		# Broadcast in search of peers.
-		$Network.search_for_clients()
+		network.search_for_clients()
 
 	var p = player.instantiate()
 	is_player = true
 	p.is_active = true
-	$Network.is_host = true
+	network.is_host = true
 	
 	get_tree().current_scene.add_child(p)
 
