@@ -24,5 +24,3 @@ func increment_camera_index(increment_value: int):
 	current_camera = game_node.camera_list[current_camera_index]
 
 
-func _on_infrared_button_pressed() -> void:
-	pass # Replace with function body.

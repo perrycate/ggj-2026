@@ -7,3 +7,4 @@ func enter(_message):
 func exit():
 	super()
 	acoustic_spotlight.hide()
+
