@@ -8,4 +8,8 @@ func physics_update(delta: float) -> void:
 
 	body.velocity += input_direction * acceleration * delta
 	body.velocity = body.velocity.limit_length(max_speed)
+
+	if Input.is_action_pressed("dash"):
+		transition.emit(self, "Dashing")
+
 	body.move_and_slide()
