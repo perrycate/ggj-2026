@@ -1,4 +1,4 @@
-extends State
+extends WatcherState
 class_name WatcherControlling
 
 func _read() -> void:
@@ -26,3 +26,19 @@ func update(_delta: float):
 func physics_update(_delta: float):
 	base_node.global_position = base_node.current_camera.global_position
 	pass
+
+func attempt_mask_change(mask: String):
+	if active:
+		base_node.current_camera.change_mask(mask)
+
+func _on_visual_button_pressed() -> void:
+	attempt_mask_change("Visual")
+
+func _on_infrared_button_pressed() -> void:
+	attempt_mask_change("Infrared")
+
+func _on_night_vision_button_pressed() -> void:
+	attempt_mask_change("NightVision")
+
+func _on_acoutstic_button_pressed() -> void:
+	attempt_mask_change("Acoustic")

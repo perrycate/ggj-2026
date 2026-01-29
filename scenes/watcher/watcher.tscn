@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bm0nx058xtv3u"]
+[gd_scene load_steps=11 format=3 uid="uid://bm0nx058xtv3u"]
 
 [ext_resource type="Script" uid="uid://dahy7hpota4ua" path="res://scripts/watcher/watcher.gd" id="1_ilq2x"]
 [ext_resource type="Script" uid="uid://d115hcpw86va2" path="res://scripts/watcher/watcher_state_machine.gd" id="2_ilq2x"]
@@ -33,6 +33,32 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mrnq6"]
+shader = ExtResource("6_mrnq6")
+shader_parameter/overlay = false
+shader_parameter/resolution = Vector2(640, 360)
+shader_parameter/brightness = 1.4
+shader_parameter/scanlines_opacity = 0.0400000019
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.050000002375
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 1.8000000822401199
+shader_parameter/distort_intensity = 0.010000000475
+shader_parameter/aberration = 4.7499999933364734e-08
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/pixelate = false
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.30000001425
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ge30l"]
+
 [node name="Watcher" type="Node2D"]
 script = ExtResource("1_ilq2x")
 
@@ -55,3 +81,63 @@ texture = SubResource("NoiseTexture2D_ilq2x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ge30l")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CRTFilter" type="TextureRect" parent="Control"]
+visible = false
+z_index = 5
+material = SubResource("ShaderMaterial_mrnq6")
+layout_mode = 0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+size_flags_vertical = 4
+texture = SubResource("CanvasTexture_ge30l")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 280.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 320
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VisualButton" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "visual"
+
+[node name="InfraredButton" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "infrared"
+
+[node name="NightVisionButton" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "night vision"
+
+[node name="AcoutsticButton" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "acoustic"
+
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/VisualButton" to="StateMachine/Controlling" method="_on_visual_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/InfraredButton" to="StateMachine/Controlling" method="_on_infrared_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/NightVisionButton" to="StateMachine/Controlling" method="_on_night_vision_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/AcoutsticButton" to="StateMachine/Controlling" method="_on_acoutstic_button_pressed"]

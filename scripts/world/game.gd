@@ -118,8 +118,8 @@ func establish_connection(server_address: String) -> int:
 
 	return 0
 
-
 func add_camera(camera: Camera):
 	if camera != null:
 		camera_list.append(camera)
+	
 
