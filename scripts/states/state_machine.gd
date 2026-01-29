@@ -10,6 +10,7 @@ func _ready() -> void:
 	#await owner.ready
 	for child in get_children():
 		if child is State:
+			print(child)
 			states[child.name] = child
 			child.transition.connect(on_child_transition)
 	
@@ -26,11 +27,14 @@ func _physics_process(delta: float) -> void:
 		current_state.physics_update(delta)
 		
 func on_child_transition(state, new_state_name, _message):
+	print("on child transition called!!!")
 	if state != current_state:
+		print("state != current state")
 		return
 		
 	var new_state = states.get(new_state_name)
 	if !new_state:
+		print("!new state")
 		return
 		
 	if current_state:

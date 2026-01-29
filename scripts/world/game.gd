@@ -6,7 +6,7 @@ var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 var camera_list: Array[Camera] = []
 var is_player: bool = false
 
-@onready var cameras_node: Node2D = $Cameras
+@onready var cameras_node = $Cameras
 @onready var network: Node = $Network
 
 # To work around wonky network discovery issues, for now.
@@ -117,3 +117,9 @@ func establish_connection(server_address: String) -> int:
 	print("joined")
 
 	return 0
+
+
+func add_camera(camera: Camera):
+	if camera != null:
+		camera_list.append(camera)
+

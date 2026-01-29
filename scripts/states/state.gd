@@ -24,7 +24,7 @@ func enter(_message):
 	pass
 	
 func exit():
-	print(base_node.character_name, " exiting state: ", state_name)
+	#print(base_node.character_name, " exiting state: ", state_name)
 	#body.move_and_slide()
 	pass
 	

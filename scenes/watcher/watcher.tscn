@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bm0nx058xtv3u"]
 
 [ext_resource type="Script" uid="uid://dahy7hpota4ua" path="res://scripts/watcher/watcher.gd" id="1_ilq2x"]
-[ext_resource type="Script" uid="uid://bhd1vsmbdtydl" path="res://scripts/states/state_machine.gd" id="1_s0oms"]
+[ext_resource type="Script" uid="uid://d115hcpw86va2" path="res://scripts/watcher/watcher_state_machine.gd" id="2_ilq2x"]
 [ext_resource type="Script" uid="uid://tlk5xxkkue7f" path="res://scripts/watcher/controlling.gd" id="2_x80ag"]
 [ext_resource type="Script" uid="uid://bwdfw7madvuyd" path="res://scripts/watcher/switching.gd" id="3_ilq2x"]
 [ext_resource type="Script" uid="uid://bd7bas20njuwq" path="res://scripts/watcher/stunned.gd" id="4_mrnq6"]
@@ -12,7 +12,7 @@
 script = ExtResource("1_ilq2x")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("1_s0oms")
+script = ExtResource("2_ilq2x")
 initial_state = NodePath("Switching")
 
 [node name="Controlling" type="Node" parent="StateMachine"]

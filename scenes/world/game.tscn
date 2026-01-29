@@ -10,15 +10,16 @@
 script = ExtResource("1_w44h4")
 
 [node name="Watcher" parent="." instance=ExtResource("2_3iwug")]
+z_index = 1
 
 [node name="Cameras" type="Node2D" parent="."]
 script = ExtResource("3_r5nxa")
 
-[node name="Camera2" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(1141, 302)
-
 [node name="Camera1" parent="Cameras" instance=ExtResource("4_r5nxa")]
 position = Vector2(3, 307)
+
+[node name="Camera2" parent="Cameras" instance=ExtResource("4_r5nxa")]
+position = Vector2(1141, 302)
 
 [node name="JoinButton" type="Button" parent="."]
 offset_right = 125.0
