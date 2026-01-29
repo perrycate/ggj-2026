@@ -1,10 +1,37 @@
-[gd_scene load_steps=6 format=3 uid="uid://7k81egc5b2va"]
+[gd_scene load_steps=9 format=3 uid="uid://7k81egc5b2va"]
 
 [ext_resource type="Script" uid="uid://bf5rqo731sapw" path="res://scripts/world/game.gd" id="1_w44h4"]
 [ext_resource type="PackedScene" uid="uid://bm0nx058xtv3u" path="res://scenes/watcher/watcher.tscn" id="2_3iwug"]
 [ext_resource type="Script" uid="uid://jv3hiunrens3" path="res://scenes/world/network_discovery.gd" id="2_hqfqh"]
 [ext_resource type="Script" uid="uid://cd37l6i8nl0xg" path="res://scripts/watcher/cameras.gd" id="3_r5nxa"]
 [ext_resource type="PackedScene" uid="uid://qwvh0nx7hhec" path="res://scenes/camera/camera.tscn" id="4_r5nxa"]
+[ext_resource type="Shader" uid="uid://denlbln4000b4" path="res://shaders/CRT.gdshader" id="6_sarsd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gx7t"]
+shader = ExtResource("6_sarsd")
+shader_parameter/overlay = false
+shader_parameter/resolution = Vector2(640, 360)
+shader_parameter/brightness = 1.4
+shader_parameter/scanlines_opacity = 0.0400000019
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.050000002375
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 1.8000000822401199
+shader_parameter/distort_intensity = 0.010000000475
+shader_parameter/aberration = 4.7499999933364734e-08
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/pixelate = false
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.30000001425
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2oj1e"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_w44h4")
@@ -16,33 +43,45 @@ z_index = 1
 script = ExtResource("3_r5nxa")
 
 [node name="Camera1" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(3, 307)
+position = Vector2(40, 292)
 
 [node name="Camera2" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(1141, 302)
+position = Vector2(602, 221)
+
+[node name="Camera3" parent="Cameras" instance=ExtResource("4_r5nxa")]
+position = Vector2(445, 18)
 
 [node name="JoinButton" type="Button" parent="."]
-offset_right = 125.0
-offset_bottom = 96.0
-theme_override_font_sizes/font_size = 64
+offset_right = 63.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 30
 text = "Join"
 
 [node name="HostButton" type="Button" parent="."]
-offset_left = 161.0
-offset_right = 312.0
-offset_bottom = 96.0
-theme_override_font_sizes/font_size = 64
+offset_left = 80.0
+offset_top = 1.0
+offset_right = 155.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 30
 text = "Host
 "
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(639, 294)
+position = Vector2(405.00006, 188)
 scale = Vector2(1.102069, 1.0915226)
 polygon = PackedVector2Array(-143.3205, -164.8793, -137.87616, 152.65439, 0.49890137, 152.65439, -2.4293213, -167.98352)
 uv = PackedVector2Array(-136, -58, -136, 148, 0.49890137, 152.65439, -2.4293213, -167.98352)
 
 [node name="Network" type="Node" parent="."]
 script = ExtResource("2_hqfqh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = 5
+material = SubResource("ShaderMaterial_3gx7t")
+offset_right = 640.0
+offset_bottom = 362.0
+size_flags_vertical = 4
+texture = SubResource("CanvasTexture_2oj1e")
 
 [connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
