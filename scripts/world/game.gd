@@ -7,6 +7,7 @@ var camera_list: Array[Camera] = []
 
 @onready var cameras_node = $Cameras
 @onready var network: Node = $Network
+@onready var player_spawner = $PlayerSpawner
 
 # To work around wonky network discovery issues, for now.
 # TODO: Remove this before playtesting on multiple computers.
@@ -24,12 +25,14 @@ var prev_state = {}
 
 func _ready() -> void:
 	OS.set_environment("GODOT_VERBOSE", "1")
+	multiplayer.peer_connected.connect(on_peer_connected)
 
 func _on_join_button_pressed():
 	if IS_LOCAL_ONLY:
-		establish_connection("127.0.0.1")
+		establish_connection_to_server("127.0.0.1")
 		return
 	network.search_for_host()
+
 
 func _on_host_button_pressed():
 	# Create server.
@@ -39,6 +42,7 @@ func _on_host_button_pressed():
 		return error
 
 	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(spawn_player)
 
 	print("hosting")
 
@@ -46,24 +50,25 @@ func _on_host_button_pressed():
 		# Broadcast in search of peers.
 		network.search_for_clients()
 
-	var p = player.instantiate()
-	
-	get_tree().current_scene.add_child(p)
 
-func establish_connection(server_address: String) -> int:
+func establish_connection_to_server(server_address: String):
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(server_address, DEFAULT_PORT)
 	if error:
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	get_tree().current_scene.add_child(player.instantiate())
-	print("joined")
-
-	return 0
 
 func add_camera(camera: Camera):
 	if camera != null:
 		camera_list.append(camera)
-	
 
+func spawn_player(_peer_id):
+	print("spawning")
+	var p = player.instantiate()
+	p.authority_peer_id = 1 # Server. TODO don't hardcode shit.
+	player_spawner.add_child(p, true)
+
+
+func on_peer_connected(peer_id: int):
+	print("connected to peer: ", peer_id)

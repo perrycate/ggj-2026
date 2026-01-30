@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhkljttu1fkh7"]
+[gd_scene load_steps=9 format=3 uid="uid://dhkljttu1fkh7"]
 
 [ext_resource type="Script" uid="uid://3464yub88grv" path="res://scripts/player/player.gd" id="1_lvxji"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://art/icon.svg" id="2_p47bc"]
@@ -7,12 +7,20 @@
 [ext_resource type="Script" uid="uid://cb2wspqlbvv7e" path="res://scripts/player/moving.gd" id="5_75vfm"]
 [ext_resource type="Script" uid="uid://oh1ktcphop0e" path="res://scenes/player/dashing.gd" id="6_75vfm"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_75vfm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h30v7"]
 size = Vector2(127, 127)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_lvxji")
 metadata/_edit_group_ = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_75vfm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -0.5)
