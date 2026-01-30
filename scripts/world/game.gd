@@ -66,7 +66,7 @@ func add_camera(camera: Camera):
 func spawn_player(_peer_id):
 	print("spawning")
 	var p = player.instantiate()
-	p.authority_peer_id = 1 # Server. TODO don't hardcode shit.
+	p.name = "1" # Server. TODO don't hardcode shit.
 	player_spawner.add_child(p, true)
 
 
