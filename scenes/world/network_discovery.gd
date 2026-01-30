@@ -3,8 +3,6 @@ extends Node
 const DEFAULT_LISTEN_PORT = 4269
 const MULTICAST_ADDR = "239.0.0.0"
 
-@export var is_host = false
-
 enum State {
 	# Player hasn't selected if they want to host or join.
 	INACTIVE,

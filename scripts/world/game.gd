@@ -4,7 +4,6 @@ extends Node2D
 var player: PackedScene = preload("res://scenes/player/player.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 var camera_list: Array[Camera] = []
-var is_player: bool = false
 
 @onready var cameras_node = $Cameras
 @onready var network: Node = $Network
@@ -25,58 +24,6 @@ var prev_state = {}
 
 func _ready() -> void:
 	OS.set_environment("GODOT_VERBOSE", "1")
-
-func _physics_process(_delta: float) -> void:
-	if !network || !network.is_host:
-		return
-
-	call_deferred("broadcast_game_state")
-
-func broadcast_game_state() -> void:
-	"""
-	Sends out an rpc with the position/state of the player.
-
-	This should be called by the host, after all movement logic is executed.
-
-	Once we have other entities (enemies etc) moving around, we
-	should probably send that info out here as well.
-	"""
-	var state = get_positions()
-
-	if state == prev_state:
-		return
-
-	set_positions.rpc(state)
-	prev_state = state
-
-
-func get_positions():
-	"""
-	Returns a dictionary containing any game state that needs to be
-	kept in sync between the host and the client(s).
-
-	WARNING: Make sure the data structure here stays in sync with the one
-	used in set_positions!
-	(PC: I sure wish gdscript let us define our own types. :/)
-	"""
-
-	return {"player_position": $Player.position}
-
-
-@rpc
-func set_positions(new_state) -> void:
-	"""
-	Accepts a dict containing game state, and updates the
-	corresponding positions.
-
-	This should be called on the client with data obtained on the host.
-
-	WARNING: Make sure the data structure here stays in sync with the one
-	returned by get_positions!
-	(PC: I sure wish gdscript let us define our own types. :/)
-	"""
-	print(new_state)
-	$Player.position = new_state["player_position"]
 
 func _on_join_button_pressed():
 	if IS_LOCAL_ONLY:
@@ -100,8 +47,6 @@ func _on_host_button_pressed():
 		network.search_for_clients()
 
 	var p = player.instantiate()
-	is_player = true
-	network.is_host = true
 	
 	get_tree().current_scene.add_child(p)
 

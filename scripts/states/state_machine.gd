@@ -7,7 +7,11 @@ var states: Dictionary = {}
 var current_state: State
 
 func _ready() -> void:
-	#await owner.ready
+	if !is_multiplayer_authority():
+		set_process(false)
+		set_physics_process(false)
+		set_process_input(false)
+
 	for child in get_children():
 		if child is State:
 			print(child)
