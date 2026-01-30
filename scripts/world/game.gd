@@ -58,6 +58,9 @@ func establish_connection_to_server(server_address: String):
 		return error
 
 	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(config_cameras)
+
+	print("hi")
 
 func add_camera(camera: Camera):
 	if camera != null:
@@ -69,6 +72,10 @@ func spawn_player(_peer_id):
 	p.name = "1" # Server. TODO don't hardcode shit.
 	player_spawner.add_child(p, true)
 
+func config_cameras(_peer_id):
+	var my_id = multiplayer.multiplayer_peer.get_unique_id()
+	print("configuring cameras for peer ", my_id)
+	cameras_node.configure_authority.rpc(my_id)
 
 func on_peer_connected(peer_id: int):
 	print("connected to peer: ", peer_id)

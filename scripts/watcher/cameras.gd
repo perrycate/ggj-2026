@@ -12,3 +12,9 @@ func _ready() -> void:
 	print("camera list:")
 	for camera in game_node.camera_list:
 		print("found camera: ", camera)
+
+@rpc("any_peer")
+func configure_authority(peer_id: int) -> void:
+	print("configuring authority")
+	for camera in get_children():
+		camera.configure_authority(peer_id)
