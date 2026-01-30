@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var player: PackedScene = preload("res://scenes/world/player.tscn")
+var player: PackedScene = preload("res://scenes/player/player.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 var camera_list: Array[Camera] = []
 var is_player: bool = false
@@ -101,7 +101,6 @@ func _on_host_button_pressed():
 
 	var p = player.instantiate()
 	is_player = true
-	p.is_active = true
 	network.is_host = true
 	
 	get_tree().current_scene.add_child(p)

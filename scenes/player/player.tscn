@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhkljttu1fkh7"]
+
+[ext_resource type="Script" uid="uid://3464yub88grv" path="res://scripts/player/player.gd" id="1_lvxji"]
+[ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://art/icon.svg" id="2_p47bc"]
+[ext_resource type="Script" uid="uid://bhd1vsmbdtydl" path="res://scripts/states/state_machine.gd" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://cmby6wtwwsq6e" path="res://scripts/player/idle.gd" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://cb2wspqlbvv7e" path="res://scripts/player/moving.gd" id="5_75vfm"]
+[ext_resource type="Script" uid="uid://oh1ktcphop0e" path="res://scenes/player/dashing.gd" id="6_75vfm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h30v7"]
+size = Vector2(127, 127)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_lvxji")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_h30v7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p47bc")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_75vfm")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://bhd1vsmbdtydl"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_p47bc")
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("5_75vfm")
+
+[node name="Dashing" type="Node" parent="StateMachine"]
+script = ExtResource("6_75vfm")
+
+[node name="AccelTimer" type="Timer" parent="StateMachine/Dashing"]
+wait_time = 0.25
+one_shot = true
+
+[node name="DecelTimer" type="Timer" parent="StateMachine/Dashing"]
+wait_time = 0.25
+one_shot = true
