@@ -1,32 +1,57 @@
-[gd_scene load_steps=8 format=3 uid="uid://qwvh0nx7hhec"]
+[gd_scene load_steps=9 format=3 uid="uid://qwvh0nx7hhec"]
 
 [ext_resource type="Script" uid="uid://d2b73pyf7btsx" path="res://scripts/camera/camera.gd" id="1_6m2n3"]
 [ext_resource type="Texture2D" uid="uid://ducafcw732aa5" path="res://art/camera.png" id="2_0jiuk"]
-[ext_resource type="Script" uid="uid://bhd1vsmbdtydl" path="res://scripts/states/state_machine.gd" id="3_0jiuk"]
+[ext_resource type="Texture2D" uid="uid://cojcvtcrfwurv" path="res://art/spotlight.png" id="2_k3vso"]
 [ext_resource type="Script" uid="uid://bstp46uc1rhmo" path="res://scripts/camera/infrared.gd" id="4_4ph7v"]
+[ext_resource type="Script" uid="uid://bpirsupwtgqe6" path="res://scripts/camera/camera_state_machine.gd" id="4_k3vso"]
 [ext_resource type="Script" uid="uid://cxatfi0jqfubi" path="res://scripts/camera/visual.gd" id="5_k3vso"]
 [ext_resource type="Script" uid="uid://pdp7tipda741" path="res://scripts/camera/acoustic.gd" id="6_kuc5t"]
-[ext_resource type="Script" uid="uid://d3evpi8im7jre" path="res://scripts/camera/switching.gd" id="7_acrws"]
+[ext_resource type="Script" uid="uid://bd3ed0d1b7qpl" path="res://scripts/camera/night_vision.gd" id="7_4ph7v"]
 
 [node name="Camera" type="CharacterBody2D"]
 script = ExtResource("1_6m2n3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Spotlights" type="Node2D" parent="."]
+
+[node name="AcousticSpotlight" type="Sprite2D" parent="Spotlights"]
+visible = false
+modulate = Color(0.7294118, 0, 0.14509805, 0.38039216)
+texture = ExtResource("2_k3vso")
+
+[node name="InfraredSpotlight" type="Sprite2D" parent="Spotlights"]
+visible = false
+modulate = Color(0.05882353, 0, 0.84705883, 0.4392157)
+texture = ExtResource("2_k3vso")
+
+[node name="VisualSpotlight" type="Sprite2D" parent="Spotlights"]
+visible = false
+modulate = Color(0.49747366, 0.49747372, 0.49747354, 0.19607843)
+texture = ExtResource("2_k3vso")
+
+[node name="NightVisionSpotlight" type="Sprite2D" parent="Spotlights"]
+visible = false
+modulate = Color(0, 0.6, 0.28627452, 0.4509804)
+texture = ExtResource("2_k3vso")
+
+[node name="CameraIcon" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(11, 0)
 texture = ExtResource("2_0jiuk")
 
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource("3_0jiuk")
-metadata/_custom_type_script = "uid://bhd1vsmbdtydl"
-
-[node name="Infrared" type="Node" parent="StateMachine"]
-script = ExtResource("4_4ph7v")
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_k3vso")
+initial_state = NodePath("Visual")
+metadata/_custom_type_script = "uid://bpirsupwtgqe6"
 
 [node name="Visual" type="Node" parent="StateMachine"]
 script = ExtResource("5_k3vso")
 
+[node name="Infrared" type="Node" parent="StateMachine"]
+script = ExtResource("4_4ph7v")
+
+[node name="NightVision" type="Node" parent="StateMachine"]
+script = ExtResource("7_4ph7v")
+
 [node name="Acoustic" type="Node" parent="StateMachine"]
 script = ExtResource("6_kuc5t")
-
-[node name="Switching" type="Node" parent="StateMachine"]
-script = ExtResource("7_acrws")

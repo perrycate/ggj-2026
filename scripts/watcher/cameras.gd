@@ -1,9 +1,14 @@
 extends Node2D
 
+@onready var game_node = get_parent()
 #var camera_list: Array[Camera] = []
 
 func _ready() -> void:
 	for camera in get_children():
 		if camera is Camera:
-			Game.camera_list.append(camera)
+			print("adding camera: ", camera)
+			game_node.add_camera(camera)
 
+	print("camera list:")
+	for camera in game_node.camera_list:
+		print("found camera: ", camera)

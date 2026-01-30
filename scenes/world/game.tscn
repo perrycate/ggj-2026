@@ -10,32 +10,37 @@
 script = ExtResource("1_w44h4")
 
 [node name="Watcher" parent="." instance=ExtResource("2_3iwug")]
+z_index = 1
 
 [node name="Cameras" type="Node2D" parent="."]
 script = ExtResource("3_r5nxa")
 
-[node name="Camera2" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(1141, 302)
-
 [node name="Camera1" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(3, 307)
+position = Vector2(40, 292)
+
+[node name="Camera2" parent="Cameras" instance=ExtResource("4_r5nxa")]
+position = Vector2(602, 221)
+
+[node name="Camera3" parent="Cameras" instance=ExtResource("4_r5nxa")]
+position = Vector2(445, 18)
 
 [node name="JoinButton" type="Button" parent="."]
-offset_right = 125.0
-offset_bottom = 96.0
-theme_override_font_sizes/font_size = 64
+offset_right = 63.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 30
 text = "Join"
 
 [node name="HostButton" type="Button" parent="."]
-offset_left = 161.0
-offset_right = 312.0
-offset_bottom = 96.0
-theme_override_font_sizes/font_size = 64
+offset_left = 80.0
+offset_top = 1.0
+offset_right = 155.0
+offset_bottom = 51.0
+theme_override_font_sizes/font_size = 30
 text = "Host
 "
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(639, 294)
+position = Vector2(405.00006, 188)
 scale = Vector2(1.102069, 1.0915226)
 polygon = PackedVector2Array(-143.3205, -164.8793, -137.87616, 152.65439, 0.49890137, 152.65439, -2.4293213, -167.98352)
 uv = PackedVector2Array(-136, -58, -136, 148, 0.49890137, 152.65439, -2.4293213, -167.98352)

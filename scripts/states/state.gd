@@ -3,6 +3,8 @@ class_name State
 
 signal transition
 
+var active: bool = false
+
 const NO_MESSAGE: String = ""
 
 @onready var base_node: Node2D = $"../.."
@@ -11,10 +13,15 @@ func _ready() -> void:
 	pass
 
 func enter(_message):
-	print(base_node.name, " entering state: ", name)
+	active = true
+	print(base_node.name, " entering state: ", state_name)
+	#print(body.character_name, " entering state: ", state_name)
 	pass
 	
 func exit():
+	active = false
+	#print(base_node.character_name, " exiting state: ", state_name)
+	#body.move_and_slide()
 	pass
 	
 func update(_delta: float):
