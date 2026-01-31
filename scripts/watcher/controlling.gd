@@ -7,12 +7,12 @@ func _read() -> void:
 func enter(_message):
 	super(_message)
 	# CT: allow the camera to move
-	base_node.current_camera.is_active = true  
+	watcher.get_current_camera().is_active = true  
 
 func exit():
 	super()
 	# CT: stop the camera from moving
-	base_node.current_camera.is_active = false
+	watcher.get_current_camera().is_active = false
 
 func update(_delta: float):
 	# CT: needs to check for input to switch cameras
@@ -24,12 +24,12 @@ func update(_delta: float):
 	pass
 
 func physics_update(_delta: float):
-	base_node.global_position = base_node.current_camera.global_position
+	watcher.global_position = watcher.get_current_camera().global_position
 	pass
 
 func attempt_mask_change(mask: String):
 	if active:
-		base_node.current_camera.change_mask(mask)
+		watcher.get_current_camera().change_mask(mask)
 
 func _on_visual_button_pressed() -> void:
 	attempt_mask_change("Visual")

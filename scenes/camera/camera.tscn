@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bpirsupwtgqe6" path="res://scripts/camera/camera_state_machine.gd" id="4_k3vso"]
 [ext_resource type="Script" uid="uid://cxatfi0jqfubi" path="res://scripts/camera/visual.gd" id="5_k3vso"]
 [ext_resource type="Script" uid="uid://pdp7tipda741" path="res://scripts/camera/acoustic.gd" id="6_kuc5t"]
-[ext_resource type="Script" path="res://scripts/camera/night_vision.gd" id="7_4ph7v"]
+[ext_resource type="Script" uid="uid://bd3ed0d1b7qpl" path="res://scripts/camera/night_vision.gd" id="7_4ph7v"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_k3vso"]
 properties/0/path = NodePath(".:position")
