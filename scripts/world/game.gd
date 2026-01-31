@@ -10,8 +10,7 @@ var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 @onready var camera_spawner = $CameraSpawner
 
 # To work around wonky network discovery issues, for now.
-# TODO: Remove this before playtesting on multiple computers.
-const IS_LOCAL_ONLY = true
+var is_local_only = false
 
 const DEFAULT_PORT = 4267
 
@@ -30,13 +29,37 @@ func _ready() -> void:
 	OS.set_environment("GODOT_VERBOSE", "1")
 	multiplayer.peer_connected.connect(on_peer_connected)
 
+	if "--watcher" in OS.get_cmdline_args():
+		is_local_only = true
+		_on_host_button_pressed()
+		return
+	if "--player" in OS.get_cmdline_args():
+		is_local_only = true
+		_on_join_button_pressed()
+
+
+	for arg in OS.get_cmdline_args():
+		if "--peer" not in arg:
+			continue
+
+		var addr = arg.split("=")[1]
+		print("auto-connecting to address ", addr)
+		establish_connection_to_server(addr)
+
+
 func _on_join_button_pressed():
-	if IS_LOCAL_ONLY:
+	$JoinButton.queue_free()
+	$HostButton.queue_free()
+
+	if is_local_only:
 		establish_connection_to_server("127.0.0.1")
 		return
 	network.search_for_host()
 
 func _on_host_button_pressed():
+	$JoinButton.queue_free()
+	$HostButton.queue_free()
+
 	# Create server.
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, MAX_PEERS)
@@ -48,7 +71,7 @@ func _on_host_button_pressed():
 
 	print("hosting")
 
-	if !IS_LOCAL_ONLY:
+	if !is_local_only:
 		# Broadcast in search of peers.
 		network.search_for_clients()
 

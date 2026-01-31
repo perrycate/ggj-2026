@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 
 			var parent = get_parent()
 
-			err = parent.establish_connection(socket.get_packet_ip())
+			err = parent.establish_connection_to_server(socket.get_packet_ip())
 			quit_on_error(err)
 
 			current_state = State.CONNECTED
@@ -79,5 +79,5 @@ func search_for_host():
 	current_state = State.LISTENING
 
 
-func quit_on_error(error: int) -> void:
+func quit_on_error(error) -> void:
 	assert(!error)
