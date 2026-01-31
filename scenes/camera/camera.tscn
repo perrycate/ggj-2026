@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://qwvh0nx7hhec"]
+[gd_scene load_steps=12 format=3 uid="uid://qwvh0nx7hhec"]
 
 [ext_resource type="Script" uid="uid://d2b73pyf7btsx" path="res://scripts/camera/camera.gd" id="1_6m2n3"]
 [ext_resource type="Texture2D" uid="uid://ducafcw732aa5" path="res://art/camera.png" id="2_0jiuk"]
@@ -13,9 +13,18 @@
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("PlayerDetectorArea:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("PlayerDetectorArea/PlayerDetectorCollision:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k3vso"]
 size = Vector2(55, 55)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k3vso"]
+radius = 89.005615
 
 [node name="Camera" type="CharacterBody2D"]
 collision_layer = 4
@@ -26,6 +35,13 @@ replication_config = SubResource("SceneReplicationConfig_k3vso")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_k3vso")
+
+[node name="PlayerDetectorArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="PlayerDetectorCollision" type="CollisionShape2D" parent="PlayerDetectorArea"]
+shape = SubResource("CircleShape2D_k3vso")
 
 [node name="Spotlights" type="Node2D" parent="."]
 
@@ -69,3 +85,8 @@ script = ExtResource("7_4ph7v")
 
 [node name="Acoustic" type="Node" parent="StateMachine"]
 script = ExtResource("6_kuc5t")
+
+[connection signal="area_entered" from="PlayerDetectorArea" to="." method="_on_player_detector_area_entered"]
+[connection signal="area_exited" from="PlayerDetectorArea" to="." method="_on_player_detector_area_exited"]
+[connection signal="body_entered" from="PlayerDetectorArea" to="." method="_on_player_detected"]
+[connection signal="body_exited" from="PlayerDetectorArea" to="." method="_on_player_not_detected"]

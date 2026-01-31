@@ -65,7 +65,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="CRTFilter" type="TextureRect" parent="Control"]
-visible = false
 z_index = 5
 material = SubResource("ShaderMaterial_mrnq6")
 layout_mode = 0
