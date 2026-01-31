@@ -3,6 +3,7 @@ class_name Camera
 
 var change_cooldown: float = 0
 var is_active: bool = false
+var player_detected: bool = false
 
 @onready var state_machine = $StateMachine
 
@@ -46,3 +47,14 @@ func change_mask(new_mask) -> void:
 
 	if state_machine.transition_mask(new_mask):
 		change_cooldown = CHANGE_COOLDOWN_MAX
+
+func _on_player_detector_area_exited(area: Area2D) -> void:
+	print("PLAYER HAS BEEN DETECTED!")
+	player_detected = true
+	pass # Replace with function body.
+
+func _on_player_detector_area_entered(area: Area2D) -> void:
+	print("PLAYER IS NO LONGER DETECTED!")
+	player_detected = false
+	pass # Replace with function body.
+
