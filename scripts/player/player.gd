@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var camera_node: Camera2D = $Camera2D
+@onready var sprite: AnimatedSprite2D = $PlayerSprite
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
