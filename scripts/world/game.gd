@@ -37,6 +37,16 @@ func _ready() -> void:
 		is_local_only = true
 		_on_join_button_pressed()
 
+
+	for arg in OS.get_cmdline_args():
+		if "--peer" not in arg:
+			continue
+
+		var addr = arg.split("=")[1]
+		print("auto-connecting to address ", addr)
+		establish_connection_to_server(addr)
+
+
 func _on_join_button_pressed():
 	$JoinButton.queue_free()
 	$HostButton.queue_free()
