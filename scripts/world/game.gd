@@ -70,7 +70,6 @@ func start_game(player_peer_id):
 	player_spawner.add_child(p, true)
 
 	for spawn_location in $CameraSpawner.get_children():
-		print("spawned camera ", cameras.size())
 		var c = camera.instantiate()
 		c.position = spawn_location.position
 		cameras.append(c)
@@ -79,7 +78,6 @@ func start_game(player_peer_id):
 	spawn_watcher()
 
 func spawn_watcher():
-	print("MY ID: ", multiplayer.multiplayer_peer.get_unique_id())
 	var w = watcher.instantiate()
 	w.camera_list = cameras
 	camera_spawner.add_child(w, true)
