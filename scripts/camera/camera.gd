@@ -19,7 +19,7 @@ func _enter_tree():
 	var authority_id = name.to_int()
 
 	set_multiplayer_authority(authority_id)
-	print("camera authority: ", name)
+	print("camera authority: ", authority_id)
 
 	if authority_id != multiplayer.multiplayer_peer.get_unique_id():
 		set_process(false)

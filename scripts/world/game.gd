@@ -34,7 +34,6 @@ func _on_join_button_pressed():
 		return
 	network.search_for_host()
 
-
 func _on_host_button_pressed():
 	# Create server.
 	var peer = ENetMultiplayerPeer.new()
@@ -59,28 +58,38 @@ func establish_connection_to_server(server_address: String):
 		return error
 
 	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(spawn_watcher)
 
-	print("hi")
+	print("connecting to server")
 
 func spawn_player(_peer_id):
 	var p = player.instantiate()
 	p.name = "1" # Server. TODO don't hardcode shit.
 	player_spawner.add_child(p, true)
 
+func spawn_cameras(_peer_id):
+	pass
+
 func spawn_watcher(_peer_id):
+	print("spawning watcher")
 	var my_peer_id = multiplayer.multiplayer_peer.get_unique_id()
 
 	# Spawn cameras at spawn locations.
-	var cameras: Array = []
+	var cameras: Array[Camera] = []
 	for spawn_location in $CameraSpawner.get_children():
+		print("spawned camera ", cameras.size())
 		var c = camera.instantiate()
 		c.name = str(my_peer_id)
+		print("CAMERA NAME ", c.name)
 		c.position = spawn_location.position
 		cameras.append(c)
+		camera_spawner.add_child(c)
 
 	# Spawn watcher.
 	var w = watcher.instantiate()
-	w.current_camera = cameras[0]
+	w.camera_list = cameras
+	print("done spawning watcher")
+	camera_spawner.add_child(w)
 	
 func on_peer_connected(peer_id: int):
 	print("connected to peer: ", peer_id)
