@@ -35,7 +35,6 @@ func _on_join_button_pressed():
 		establish_connection_to_server("127.0.0.1")
 		return
 	network.search_for_host()
-	multiplayer.peer_connected.connect(spawn_player)
 
 func _on_host_button_pressed():
 	# Create server.
@@ -64,7 +63,11 @@ func establish_connection_to_server(server_address: String):
 
 	print("connecting to server")
 
-func start_game(_player_peer_id):
+func start_game(player_peer_id):
+	var p = player.instantiate()
+	p.name = str(player_peer_id)
+	player_spawner.add_child(p, true)
+
 	for spawn_location in $CameraSpawner.get_children():
 		var c = camera.instantiate()
 		c.position = spawn_location.position
@@ -72,19 +75,11 @@ func start_game(_player_peer_id):
 		camera_spawner.add_child(c, true)
 
 	spawn_watcher()
-	spawn_player.rpc()
 
 func spawn_watcher():
 	var w = watcher.instantiate()
 	w.camera_list = cameras
 	camera_spawner.add_child(w, true)
 	
-@rpc
-func spawn_player():
-	var p = player.instantiate()
-	p.name = str(multiplayer.multiplayer_peer.get_unique_id())
-	p.position = $PlayerSpawnPoint.position
-	player_spawner.add_child(p, true)
-
 func on_peer_connected(peer_id: int):
 	print("connected to peer: ", peer_id)
