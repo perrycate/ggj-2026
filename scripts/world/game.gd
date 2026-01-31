@@ -4,7 +4,6 @@ extends Node2D
 var player: PackedScene = preload("res://scenes/player/player.tscn")
 var camera: PackedScene  =preload("res://scenes/camera/camera.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
-var camera_list: Array[Camera] = []
 
 @onready var cameras_node = $Cameras
 @onready var network: Node = $Network
@@ -60,13 +59,8 @@ func establish_connection_to_server(server_address: String):
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(config_cameras)
 
 	print("hi")
-
-func add_camera(camera: Camera):
-	if camera != null:
-		camera_list.append(camera)
 
 func spawn_player(_peer_id):
 	var p = player.instantiate()
@@ -88,12 +82,5 @@ func spawn_watcher(_peer_id):
 	var w = watcher.instantiate()
 	w.current_camera = cameras[0]
 	
-	
-	
-func config_cameras(_peer_id):
-	var my_id = multiplayer.multiplayer_peer.get_unique_id()
-	print("configuring cameras for peer ", my_id)
-	cameras_node.configure_authority.rpc(my_id)
-
 func on_peer_connected(peer_id: int):
 	print("connected to peer: ", peer_id)

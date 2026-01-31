@@ -7,8 +7,6 @@ var active: bool = false
 
 const NO_MESSAGE: String = ""
 
-@onready var base_node: Node2D = $"../.."
-
 func _ready() -> void:
 	pass
 
