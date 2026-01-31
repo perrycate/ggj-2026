@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bm0nx058xtv3u"]
 
-[ext_resource type="Script" path="res://scenes/watcher/watcher.gd" id="1_mrnq6"]
-[ext_resource type="Script" path="res://scripts/watcher/watcher_state_machine.gd" id="2_ilq2x"]
+[ext_resource type="Script" uid="uid://dymmxukap3338" path="res://scenes/watcher/watcher.gd" id="1_mrnq6"]
+[ext_resource type="Script" uid="uid://d115hcpw86va2" path="res://scripts/watcher/watcher_state_machine.gd" id="2_ilq2x"]
 [ext_resource type="Script" uid="uid://tlk5xxkkue7f" path="res://scripts/watcher/controlling.gd" id="2_x80ag"]
 [ext_resource type="Script" uid="uid://bwdfw7madvuyd" path="res://scripts/watcher/switching.gd" id="3_ilq2x"]
 [ext_resource type="Script" uid="uid://bd7bas20njuwq" path="res://scripts/watcher/stunned.gd" id="4_mrnq6"]
@@ -83,6 +83,7 @@ texture = SubResource("NoiseTexture2D_ilq2x")
 material = SubResource("ShaderMaterial_ge30l")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

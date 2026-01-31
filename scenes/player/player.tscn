@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://3464yub88grv" path="res://scripts/player/player.gd" id="1_lvxji"]
 [ext_resource type="Texture2D" uid="uid://d3v8eynat77lb" path="res://art/icon.svg" id="2_p47bc"]
 [ext_resource type="Script" uid="uid://bhd1vsmbdtydl" path="res://scripts/states/state_machine.gd" id="3_75vfm"]
-[ext_resource type="Script" uid="uid://cmby6wtwwsq6e" path="res://scripts/player/idle.gd" id="4_p47bc"]
-[ext_resource type="Script" uid="uid://cb2wspqlbvv7e" path="res://scripts/player/moving.gd" id="5_75vfm"]
+[ext_resource type="Script" path="res://scripts/player/idle.gd" id="4_p47bc"]
+[ext_resource type="Script" path="res://scripts/player/moving.gd" id="5_75vfm"]
 [ext_resource type="Script" uid="uid://oh1ktcphop0e" path="res://scenes/player/dashing.gd" id="6_75vfm"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_75vfm"]
@@ -50,3 +50,6 @@ one_shot = true
 [node name="DecelTimer" type="Timer" parent="StateMachine/Dashing"]
 wait_time = 0.25
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
