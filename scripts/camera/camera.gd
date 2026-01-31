@@ -48,13 +48,22 @@ func change_mask(new_mask) -> void:
 	if state_machine.transition_mask(new_mask):
 		change_cooldown = CHANGE_COOLDOWN_MAX
 
-func _on_player_detector_area_exited(area: Area2D) -> void:
-	print("PLAYER HAS BEEN DETECTED!")
+func _on_player_detector_area_exited(_area: Area2D) -> void:
+	print("AREA IS NO LONGER DETECTED!")
+	player_detected = true
+
+func _on_player_detector_area_entered(_area: Area2D) -> void:
+	print("AREA HAS BEEN DETECTED!")
+	player_detected = false
+
+
+func _on_player_not_detected(_body: Node2D) -> void:
+	print("PLAYER IS NO LONGER DETECTED!")
 	player_detected = true
 	pass # Replace with function body.
 
-func _on_player_detector_area_entered(area: Area2D) -> void:
-	print("PLAYER IS NO LONGER DETECTED!")
+func _on_player_detected(_body: Node2D) -> void:
+	print("PLAYER HAS BEEN DETECTED!")
 	player_detected = false
 	pass # Replace with function body.
 
