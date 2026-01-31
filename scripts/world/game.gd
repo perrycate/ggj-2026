@@ -72,7 +72,6 @@ func start_game(player_peer_id):
 	for spawn_location in $CameraSpawner.get_children():
 		print("spawned camera ", cameras.size())
 		var c = camera.instantiate()
-		c.name = "1" # Server. TODO don't hardcode shit.
 		c.position = spawn_location.position
 		cameras.append(c)
 		camera_spawner.add_child(c, true)

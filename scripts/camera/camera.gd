@@ -16,7 +16,7 @@ const CAMERA_SPEED: float = 200
 
 
 func _enter_tree():
-	var authority_id = name.to_int()
+	var authority_id = "1" # Always the server ID.
 
 	set_multiplayer_authority(authority_id)
 	print("camera authority: ", authority_id)
