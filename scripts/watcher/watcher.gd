@@ -7,8 +7,14 @@ var current_camera_index: int = 0
 
 @onready var cameras = get_parent().get_node("Cameras")
 @onready var game_node = $"/root/Game"
+@onready var camera_node: Camera2D = $Camera2D
 
 func _ready() -> void:
+	if is_multiplayer_authority():
+		print("just the watcher")
+		# CT: uncomment this when the watcher is actually spawning in on connection and not by default on game initiation
+		#camera_node.enabled = true
+		
 	pass
 
 func _process(_delta: float):

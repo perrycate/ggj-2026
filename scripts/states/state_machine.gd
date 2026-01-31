@@ -11,7 +11,8 @@ func _ready() -> void:
 		set_process(false)
 		set_physics_process(false)
 		set_process_input(false)
-
+		#return
+	
 	for child in get_children():
 		if child is State:
 			print(child)

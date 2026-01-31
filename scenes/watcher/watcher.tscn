@@ -83,6 +83,7 @@ texture = SubResource("NoiseTexture2D_ilq2x")
 material = SubResource("ShaderMaterial_ge30l")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -91,6 +92,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="CRTFilter" type="TextureRect" parent="Control"]
+visible = false
 z_index = 5
 material = SubResource("ShaderMaterial_mrnq6")
 layout_mode = 0

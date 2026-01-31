@@ -8,6 +8,7 @@ var camera_list: Array[Camera] = []
 @onready var cameras_node = $Cameras
 @onready var network: Node = $Network
 @onready var player_spawner = $PlayerSpawner
+@onready var player_spawn_point = $PlayerSpawnPoint
 
 # To work around wonky network discovery issues, for now.
 # TODO: Remove this before playtesting on multiple computers.
@@ -71,6 +72,7 @@ func spawn_player(_peer_id):
 	var p = player.instantiate()
 	p.name = "1" # Server. TODO don't hardcode shit.
 	player_spawner.add_child(p, true)
+	p.global_position = player_spawn_point.global_position
 
 func config_cameras(_peer_id):
 	var my_id = multiplayer.multiplayer_peer.get_unique_id()
