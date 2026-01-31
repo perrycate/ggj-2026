@@ -5,7 +5,9 @@ extends CharacterBody2D
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
-	print("player authority: ", name)
+
+	# Dirty hack, open to suggestions.
+	position = $"../PlayerSpawnPoint".position
 
 func _ready():
 	if is_multiplayer_authority():

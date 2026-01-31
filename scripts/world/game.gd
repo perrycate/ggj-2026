@@ -5,7 +5,6 @@ var player: PackedScene = preload("res://scenes/player/player.tscn")
 var camera: PackedScene  =preload("res://scenes/camera/camera.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 
-@onready var cameras_node = $Cameras
 @onready var network: Node = $Network
 @onready var player_spawner = $PlayerSpawner
 @onready var camera_spawner = $CameraSpawner

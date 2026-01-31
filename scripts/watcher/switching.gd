@@ -6,7 +6,6 @@ var _switch_timer: float = 0.0
 const SWITCH_TIME: float = 1.0  # seconds
 
 @onready var game_node = $"/root/Game"
-@onready var cameras_node = $"/root/Game/Cameras"
 
 func enter(_message):
 	super(_message)
