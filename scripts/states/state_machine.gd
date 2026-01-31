@@ -14,7 +14,6 @@ func _ready() -> void:
 
 	for child in get_children():
 		if child is State:
-			print(child)
 			states[child.name] = child
 			child.transition.connect(on_child_transition)
 	
