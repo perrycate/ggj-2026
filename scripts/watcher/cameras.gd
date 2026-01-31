@@ -6,10 +6,8 @@ extends Node2D
 func _ready() -> void:
 	for camera in get_children():
 		if camera is Camera:
-			print("adding camera: ", camera)
 			game_node.add_camera(camera)
 
-	print("camera list:")
 	for camera in game_node.camera_list:
 		print("found camera: ", camera)
 

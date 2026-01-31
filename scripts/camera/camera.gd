@@ -15,6 +15,17 @@ const CHANGE_COOLDOWN_MAX: float = 3.0
 const CAMERA_SPEED: float = 200
 
 
+func _enter_tree():
+	var authority_id = name.to_int()
+
+	set_multiplayer_authority(authority_id)
+	print("camera authority: ", name)
+
+	if authority_id != multiplayer.multiplayer_peer.get_unique_id():
+		set_process(false)
+		set_physics_process(false)
+		set_process_input(false)
+
 func _ready() -> void:
 	pass
 
@@ -43,8 +54,3 @@ func configure_authority(peer_id: int) -> void:
 
 	# Disallow control by non-authority.
 	# (PC: Maybe there should be a state machine for camera movement?)
-	if peer_id != multiplayer.multiplayer_peer.get_unique_id():
-		print("disabling.")
-		set_process(false)
-		set_physics_process(false)
-		set_process_input(false)

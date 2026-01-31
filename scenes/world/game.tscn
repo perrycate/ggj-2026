@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://7k81egc5b2va"]
+[gd_scene load_steps=4 format=3 uid="uid://7k81egc5b2va"]
 
 [ext_resource type="Script" uid="uid://bf5rqo731sapw" path="res://scripts/world/game.gd" id="1_w44h4"]
-[ext_resource type="PackedScene" uid="uid://bm0nx058xtv3u" path="res://scenes/watcher/watcher.tscn" id="2_3iwug"]
 [ext_resource type="Script" uid="uid://jv3hiunrens3" path="res://scenes/world/network_discovery.gd" id="2_hqfqh"]
 [ext_resource type="Script" uid="uid://cd37l6i8nl0xg" path="res://scripts/watcher/cameras.gd" id="3_r5nxa"]
-[ext_resource type="PackedScene" uid="uid://qwvh0nx7hhec" path="res://scenes/camera/camera.tscn" id="4_r5nxa"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_w44h4")
@@ -14,20 +12,20 @@ _spawnable_scenes = PackedStringArray("uid://dhkljttu1fkh7")
 spawn_path = NodePath(".")
 spawn_limit = 1
 
-[node name="Watcher" parent="." instance=ExtResource("2_3iwug")]
-z_index = 1
-
 [node name="Cameras" type="Node2D" parent="."]
 script = ExtResource("3_r5nxa")
 
-[node name="Camera1" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(40, 292)
+[node name="CameraSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath(".")
 
-[node name="Camera2" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(602, 221)
+[node name="SpawnPoint1" type="Node2D" parent="CameraSpawner"]
+position = Vector2(79, 83)
 
-[node name="Camera3" parent="Cameras" instance=ExtResource("4_r5nxa")]
-position = Vector2(445, 18)
+[node name="SpawnPoint2" type="Node2D" parent="CameraSpawner"]
+position = Vector2(250, 0)
+
+[node name="SpawnPoint3" type="Node2D" parent="CameraSpawner"]
+position = Vector2(0, 300)
 
 [node name="JoinButton" type="Button" parent="."]
 offset_right = 63.0

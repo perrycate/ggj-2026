@@ -2,12 +2,14 @@ extends Node2D
 
 
 var player: PackedScene = preload("res://scenes/player/player.tscn")
+var camera: PackedScene  =preload("res://scenes/camera/camera.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 var camera_list: Array[Camera] = []
 
 @onready var cameras_node = $Cameras
 @onready var network: Node = $Network
 @onready var player_spawner = $PlayerSpawner
+@onready var camera_spawner = $CameraSpawner
 
 # To work around wonky network discovery issues, for now.
 # TODO: Remove this before playtesting on multiple computers.
@@ -67,11 +69,27 @@ func add_camera(camera: Camera):
 		camera_list.append(camera)
 
 func spawn_player(_peer_id):
-	print("spawning")
 	var p = player.instantiate()
 	p.name = "1" # Server. TODO don't hardcode shit.
 	player_spawner.add_child(p, true)
 
+func spawn_watcher(_peer_id):
+	var my_peer_id = multiplayer.multiplayer_peer.get_unique_id()
+
+	# Spawn cameras at spawn locations.
+	var cameras: Array = []
+	for spawn_location in $CameraSpawner.get_children():
+		var c = camera.instantiate()
+		c.name = str(my_peer_id)
+		c.position = spawn_location.position
+		cameras.append(c)
+
+	# Spawn watcher.
+	var w = watcher.instantiate()
+	w.current_camera = cameras[0]
+	
+	
+	
 func config_cameras(_peer_id):
 	var my_id = multiplayer.multiplayer_peer.get_unique_id()
 	print("configuring cameras for peer ", my_id)
