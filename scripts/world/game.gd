@@ -83,7 +83,6 @@ func spawn_watcher():
 func spawn_player():
 	var p = player.instantiate()
 	p.name = str(multiplayer.multiplayer_peer.get_unique_id())
-	print($PlayerSpawnPoint.position)
 	p.position = $PlayerSpawnPoint.position
 	player_spawner.add_child(p, true)
 
