@@ -47,6 +47,9 @@ _spawnable_scenes = PackedStringArray("uid://qwvh0nx7hhec")
 spawn_path = NodePath(".")
 spawn_limit = 10
 
+[node name="SpawnPoint0" type="Marker2D" parent="CameraSpawner"]
+position = Vector2(192, 216)
+
 [node name="SpawnPoint1" type="Marker2D" parent="CameraSpawner"]
 position = Vector2(-221, 742)
 
