@@ -30,9 +30,6 @@ sources/1 = SubResource("TileSetAtlasSource_sarsd")
 [node name="Game" type="Node2D"]
 script = ExtResource("1_w44h4")
 
-[node name="PlayerSpawnPoint" type="Marker2D" parent="."]
-position = Vector2(232, 254)
-
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://dhkljttu1fkh7")
 spawn_path = NodePath(".")
