@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://qwvh0nx7hhec"]
+[gd_scene load_steps=11 format=3 uid="uid://qwvh0nx7hhec"]
 
 [ext_resource type="Script" uid="uid://d2b73pyf7btsx" path="res://scripts/camera/camera.gd" id="1_6m2n3"]
 [ext_resource type="Texture2D" uid="uid://ducafcw732aa5" path="res://art/camera.png" id="2_0jiuk"]
@@ -14,11 +14,17 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3vso"]
+size = Vector2(55, 55)
+
 [node name="Camera" type="CharacterBody2D"]
 script = ExtResource("1_6m2n3")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_k3vso")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k3vso")
 
 [node name="Spotlights" type="Node2D" parent="."]
 
@@ -33,7 +39,6 @@ modulate = Color(0.05882353, 0, 0.84705883, 0.4392157)
 texture = ExtResource("2_k3vso")
 
 [node name="VisualSpotlight" type="Sprite2D" parent="Spotlights"]
-visible = false
 modulate = Color(0.49747366, 0.49747372, 0.49747354, 0.19607843)
 texture = ExtResource("2_k3vso")
 
