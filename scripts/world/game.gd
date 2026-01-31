@@ -38,12 +38,18 @@ func _ready() -> void:
 		_on_join_button_pressed()
 
 func _on_join_button_pressed():
+	$JoinButton.queue_free()
+	$HostButton.queue_free()
+
 	if is_local_only:
 		establish_connection_to_server("127.0.0.1")
 		return
 	network.search_for_host()
 
 func _on_host_button_pressed():
+	$JoinButton.queue_free()
+	$HostButton.queue_free()
+
 	# Create server.
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, MAX_PEERS)
