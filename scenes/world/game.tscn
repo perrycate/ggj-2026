@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bf5rqo731sapw" path="res://scripts/world/game.gd" id="1_w44h4"]
 [ext_resource type="Script" uid="uid://jv3hiunrens3" path="res://scenes/world/network_discovery.gd" id="2_hqfqh"]
-[ext_resource type="Script" uid="uid://cd37l6i8nl0xg" path="res://scripts/watcher/cameras.gd" id="3_r5nxa"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_w44h4")
@@ -15,16 +14,12 @@ spawn_limit = 1
 [node name="Cameras" type="Node2D" parent="."]
 
 [node name="CameraSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://qwvh0nx7hhec")
 spawn_path = NodePath(".")
+spawn_limit = 10
 
 [node name="SpawnPoint1" type="Node2D" parent="CameraSpawner"]
 position = Vector2(79, 83)
-
-[node name="SpawnPoint2" type="Node2D" parent="CameraSpawner"]
-position = Vector2(250, 0)
-
-[node name="SpawnPoint3" type="Node2D" parent="CameraSpawner"]
-position = Vector2(0, 300)
 
 [node name="JoinButton" type="Button" parent="."]
 offset_right = 63.0

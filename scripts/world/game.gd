@@ -20,6 +20,9 @@ const MAX_PEERS = 1
 
 @export var game_node_path: NodePath
 @export var is_watcher = false
+
+var cameras: Array[Camera] = []
+
 # We cache the previous state to avoid sending more game updates
 # than necessary over the network.
 var prev_state = {}
@@ -58,32 +61,25 @@ func establish_connection_to_server(server_address: String):
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(spawn_watcher)
 
 	print("connecting to server")
 
-func spawn_player(_peer_id):
+func spawn_player(peer_id):
 	var p = player.instantiate()
 	p.name = "1" # Server. TODO don't hardcode shit.
 	player_spawner.add_child(p, true)
 
-func spawn_cameras(_peer_id):
-	pass
-
-func spawn_watcher(_peer_id):
-	print("spawning watcher")
-	var my_peer_id = multiplayer.multiplayer_peer.get_unique_id()
-
-	# Spawn cameras at spawn locations.
-	var cameras: Array[Camera] = []
 	for spawn_location in $CameraSpawner.get_children():
 		print("spawned camera ", cameras.size())
 		var c = camera.instantiate()
-		c.name = str(my_peer_id)
-		print("CAMERA NAME ", c.name)
+		c.name = str(peer_id)
 		c.position = spawn_location.position
 		cameras.append(c)
-		camera_spawner.add_child(c)
+		camera_spawner.add_child(c, true)
+
+@rpc
+func spawn_watcher():
+	print("spawning watcher")
 
 	# Spawn watcher.
 	var w = watcher.instantiate()
