@@ -4,10 +4,10 @@ extends Node2D
 var player: PackedScene = preload("res://scenes/player/player.tscn")
 var watcher: PackedScene = preload("res://scenes/watcher/watcher.tscn")
 var camera_list: Array[Camera] = []
-var is_player: bool = false
 
 @onready var cameras_node = $Cameras
 @onready var network: Node = $Network
+@onready var player_spawner = $PlayerSpawner
 
 # To work around wonky network discovery issues, for now.
 # TODO: Remove this before playtesting on multiple computers.
@@ -25,64 +25,14 @@ var prev_state = {}
 
 func _ready() -> void:
 	OS.set_environment("GODOT_VERBOSE", "1")
-
-func _physics_process(_delta: float) -> void:
-	if !network || !network.is_host:
-		return
-
-	call_deferred("broadcast_game_state")
-
-func broadcast_game_state() -> void:
-	"""
-	Sends out an rpc with the position/state of the player.
-
-	This should be called by the host, after all movement logic is executed.
-
-	Once we have other entities (enemies etc) moving around, we
-	should probably send that info out here as well.
-	"""
-	var state = get_positions()
-
-	if state == prev_state:
-		return
-
-	set_positions.rpc(state)
-	prev_state = state
-
-
-func get_positions():
-	"""
-	Returns a dictionary containing any game state that needs to be
-	kept in sync between the host and the client(s).
-
-	WARNING: Make sure the data structure here stays in sync with the one
-	used in set_positions!
-	(PC: I sure wish gdscript let us define our own types. :/)
-	"""
-
-	return {"player_position": $Player.position}
-
-
-@rpc
-func set_positions(new_state) -> void:
-	"""
-	Accepts a dict containing game state, and updates the
-	corresponding positions.
-
-	This should be called on the client with data obtained on the host.
-
-	WARNING: Make sure the data structure here stays in sync with the one
-	returned by get_positions!
-	(PC: I sure wish gdscript let us define our own types. :/)
-	"""
-	print(new_state)
-	$Player.position = new_state["player_position"]
+	multiplayer.peer_connected.connect(on_peer_connected)
 
 func _on_join_button_pressed():
 	if IS_LOCAL_ONLY:
-		establish_connection("127.0.0.1")
+		establish_connection_to_server("127.0.0.1")
 		return
 	network.search_for_host()
+
 
 func _on_host_button_pressed():
 	# Create server.
@@ -92,6 +42,7 @@ func _on_host_button_pressed():
 		return error
 
 	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(spawn_player)
 
 	print("hosting")
 
@@ -99,26 +50,32 @@ func _on_host_button_pressed():
 		# Broadcast in search of peers.
 		network.search_for_clients()
 
-	var p = player.instantiate()
-	is_player = true
-	network.is_host = true
-	
-	get_tree().current_scene.add_child(p)
 
-func establish_connection(server_address: String) -> int:
+func establish_connection_to_server(server_address: String):
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(server_address, DEFAULT_PORT)
 	if error:
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	get_tree().current_scene.add_child(player.instantiate())
-	print("joined")
+	multiplayer.peer_connected.connect(config_cameras)
 
-	return 0
+	print("hi")
 
 func add_camera(camera: Camera):
 	if camera != null:
 		camera_list.append(camera)
-	
 
+func spawn_player(_peer_id):
+	print("spawning")
+	var p = player.instantiate()
+	p.name = "1" # Server. TODO don't hardcode shit.
+	player_spawner.add_child(p, true)
+
+func config_cameras(_peer_id):
+	var my_id = multiplayer.multiplayer_peer.get_unique_id()
+	print("configuring cameras for peer ", my_id)
+	cameras_node.configure_authority.rpc(my_id)
+
+func on_peer_connected(peer_id: int):
+	print("connected to peer: ", peer_id)

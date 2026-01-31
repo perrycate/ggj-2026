@@ -36,3 +36,15 @@ func change_mask(new_mask) -> void:
 
 	if state_machine.transition_mask(new_mask):
 		change_cooldown = CHANGE_COOLDOWN_MAX
+
+func configure_authority(peer_id: int) -> void:
+	print(name, " setting authority ", peer_id)
+	set_multiplayer_authority(peer_id)
+
+	# Disallow control by non-authority.
+	# (PC: Maybe there should be a state machine for camera movement?)
+	if peer_id != multiplayer.multiplayer_peer.get_unique_id():
+		print("disabling.")
+		set_process(false)
+		set_physics_process(false)
+		set_process_input(false)
