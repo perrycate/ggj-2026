@@ -45,7 +45,7 @@ func _on_host_button_pressed():
 		return error
 
 	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(spawn_player)
+	multiplayer.peer_connected.connect(start_game)
 
 	print("hosting")
 
@@ -64,28 +64,26 @@ func establish_connection_to_server(server_address: String):
 
 	print("connecting to server")
 
-func spawn_player(peer_id):
+func start_game(player_peer_id):
 	var p = player.instantiate()
-	p.name = "1" # Server. TODO don't hardcode shit.
+	p.name = str(player_peer_id)
 	player_spawner.add_child(p, true)
 
 	for spawn_location in $CameraSpawner.get_children():
 		print("spawned camera ", cameras.size())
 		var c = camera.instantiate()
-		c.name = str(peer_id)
+		c.name = "1" # Server. TODO don't hardcode shit.
 		c.position = spawn_location.position
 		cameras.append(c)
 		camera_spawner.add_child(c, true)
 
-@rpc
-func spawn_watcher():
-	print("spawning watcher")
+	spawn_watcher()
 
-	# Spawn watcher.
+func spawn_watcher():
+	print("MY ID: ", multiplayer.multiplayer_peer.get_unique_id())
 	var w = watcher.instantiate()
 	w.camera_list = cameras
-	print("done spawning watcher")
-	camera_spawner.add_child(w)
+	camera_spawner.add_child(w, true)
 	
 func on_peer_connected(peer_id: int):
 	print("connected to peer: ", peer_id)
