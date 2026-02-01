@@ -20,19 +20,18 @@ const CHANGE_COOLDOWN_MAX: float = 3.0
 const CAMERA_SPEED: float = 200.0
 const DRONE_SPAWN_DISTANCE: float = 150.0
 
+const WATCHER_PEER_ID = 1
+
 
 func _enter_tree():
-	var authority_id = 1 # Always the server ID.
+	set_multiplayer_authority(WATCHER_PEER_ID)
 
-	set_multiplayer_authority(authority_id)
 
-	if authority_id != multiplayer.multiplayer_peer.get_unique_id():
+func _ready() -> void:
+	if !is_multiplayer_authority():
 		set_process(false)
 		set_physics_process(false)
 		set_process_input(false)
-
-func _ready() -> void:
-	pass
 
 func _process(delta: float) -> void:
 	change_cooldown = clampf(change_cooldown - delta, 0.0, CHANGE_COOLDOWN_MAX)
@@ -57,7 +56,8 @@ func deploy_drones():
 	var final_position = position + offset
 
 	deployed_drone = drone.instantiate()
-	get_tree().current_scene.add_child(deployed_drone)
+	deployed_drone.set_multiplayer_authority(WATCHER_PEER_ID)
+	$DroneSpawner.add_child(deployed_drone)
 	deployed_drone.position = final_position
 
 func change_mask(new_mask) -> void:

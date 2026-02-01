@@ -1,14 +1,24 @@
 extends CharacterBody2D
 
-var timer: float = 3.0  # seconds
+var life_timer: float = LIFE_TIME  # seconds
 
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("Player")
 
 # CT: TOOD: fine tune this
 const CHASE_SPEED: float = 80.0
 
+const LIFE_TIME: float = 3.0
+
 func _ready() -> void:
-	pass
+	if !is_multiplayer_authority():
+		set_process(false)
+		set_physics_process(false)
+		set_process_input(false)
+
+func _process(delta: float) -> void:
+	life_timer = clampf(life_timer - delta, 0.0, LIFE_TIME)
+	if life_timer == 0:
+		queue_free()
 
 func _physics_process(_delta: float) -> void:
 	# chase the player down
