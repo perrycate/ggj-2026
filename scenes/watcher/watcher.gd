@@ -14,3 +14,7 @@ func _ready() -> void:
 
 func get_current_camera() -> Camera:
 	return camera_list[current_camera_idx]
+
+func _physics_process(_delta):
+	if $SubViewportContainer/SubViewport/Test:
+		$SubViewportContainer/SubViewport/Test.position = position

@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bm0nx058xtv3u"]
+[gd_scene load_steps=11 format=3 uid="uid://bm0nx058xtv3u"]
 
 [ext_resource type="Script" uid="uid://dymmxukap3338" path="res://scenes/watcher/watcher.gd" id="1_mrnq6"]
+[ext_resource type="Texture2D" uid="uid://ducafcw732aa5" path="res://art/camera.png" id="2_ge30l"]
 [ext_resource type="Script" uid="uid://d115hcpw86va2" path="res://scripts/watcher/watcher_state_machine.gd" id="2_ilq2x"]
 [ext_resource type="Script" uid="uid://tlk5xxkkue7f" path="res://scripts/watcher/controlling.gd" id="2_x80ag"]
 [ext_resource type="Script" uid="uid://bwdfw7madvuyd" path="res://scripts/watcher/switching.gd" id="3_ilq2x"]
@@ -37,6 +38,20 @@ shader_parameter/vignette_opacity = 0.5
 
 [node name="Watcher" type="Node2D"]
 script = ExtResource("1_mrnq6")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = 190.0
+offset_top = -179.0
+offset_right = 702.0
+offset_bottom = 333.0
+scale = Vector2(0.24942558, 0.19197138)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Test" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+texture = ExtResource("2_ge30l")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_ilq2x")
