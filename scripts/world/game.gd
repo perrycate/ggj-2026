@@ -19,8 +19,6 @@ const MAX_PEERS = 1
 @export var game_node_path: NodePath
 @export var is_watcher = false
 
-var cameras: Array[Camera] = []
-
 # We cache the previous state to avoid sending more game updates
 # than necessary over the network.
 var prev_state = {}
@@ -91,15 +89,16 @@ func start_game(player_peer_id):
 	p.name = str(player_peer_id)
 	player_spawner.add_child(p, true)
 
+	var cameras: Array[Camera] = []
 	for spawn_location in $CameraSpawner.get_children():
 		var c = camera.instantiate()
 		c.position = spawn_location.position
 		cameras.append(c)
 		camera_spawner.add_child(c, true)
 
-	spawn_watcher()
+	spawn_watcher(cameras)
 
-func spawn_watcher():
+func spawn_watcher(cameras: Array[Camera]):
 	var w = watcher.instantiate()
 	w.camera_list = cameras
 	camera_spawner.add_child(w, true)

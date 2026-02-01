@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bm0nx058xtv3u"]
+[gd_scene load_steps=10 format=3 uid="uid://bm0nx058xtv3u"]
 
 [ext_resource type="Script" uid="uid://dymmxukap3338" path="res://scenes/watcher/watcher.gd" id="1_mrnq6"]
-[ext_resource type="Texture2D" uid="uid://ducafcw732aa5" path="res://art/camera.png" id="2_ge30l"]
 [ext_resource type="Script" uid="uid://d115hcpw86va2" path="res://scripts/watcher/watcher_state_machine.gd" id="2_ilq2x"]
 [ext_resource type="Script" uid="uid://tlk5xxkkue7f" path="res://scripts/watcher/controlling.gd" id="2_x80ag"]
 [ext_resource type="Script" uid="uid://bwdfw7madvuyd" path="res://scripts/watcher/switching.gd" id="3_ilq2x"]
@@ -50,11 +49,6 @@ scale = Vector2(0.064, 0.05)
 handle_input_locally = false
 size = Vector2i(2000, 2000)
 render_target_update_mode = 4
-
-[node name="MinimapCamera" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
-position = Vector2(36.105927, 39.277435)
-scale = Vector2(2.8052964, 4.9277434)
-texture = ExtResource("2_ge30l")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_ilq2x")

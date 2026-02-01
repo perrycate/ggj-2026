@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1r6byyljwbro"]
+
+[ext_resource type="Texture2D" uid="uid://cojcvtcrfwurv" path="res://art/spotlight.png" id="1_dqrw5"]
+
+[node name="MinimapCamera" type="Sprite2D"]
+texture = ExtResource("1_dqrw5")
