@@ -1,15 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0j3wapcayxjq"]
+[gd_scene load_steps=5 format=3 uid="uid://c0j3wapcayxjq"]
 
 [ext_resource type="Texture2D" uid="uid://dg507172g1tff" path="res://art/drone.png" id="1_pae44"]
+[ext_resource type="Script" uid="uid://crdleqv3seruf" path="res://scenes/drone/drone.gd" id="1_ws74u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ws74u"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ws74u"]
+radius = 11.0
+
 [node name="Drone" type="CharacterBody2D"]
 collision_layer = 32
-collision_mask = 2
+collision_mask = 0
+script = ExtResource("1_ws74u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ws74u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_pae44")
+
+[node name="PlayerDetectorArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="PlayerDetectorCollision" type="CollisionShape2D" parent="PlayerDetectorArea"]
+shape = SubResource("CircleShape2D_ws74u")
+
+[connection signal="body_entered" from="PlayerDetectorArea" to="." method="_on_player_body_entered"]
