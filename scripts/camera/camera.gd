@@ -7,6 +7,7 @@ var player_detected: bool = false
 var detected_player: CharacterBody2D = null
 
 var drone: PackedScene = preload("res://scenes/drone/drone.tscn")
+var deployed_drone = null
 
 @onready var state_machine = $StateMachine
 
@@ -36,9 +37,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	change_cooldown = clampf(change_cooldown - delta, 0.0, CHANGE_COOLDOWN_MAX)
 
-	if Input.is_action_just_pressed("drone_deploy") and player_detected:
-		print("deploying drones!")
-		deploy_drones()
+	if Input.is_action_just_pressed("drone_deploy") and not deployed_drone and player_detected:
+			print("deploying drones!")
+			deploy_drones()
 
 func _physics_process(_delta: float) -> void:
 	if is_active:
@@ -55,11 +56,9 @@ func deploy_drones():
 	var offset = Vector2(cos(drone_angle), sin(drone_angle)) * DRONE_SPAWN_DISTANCE
 	var final_position = position + offset
 
-	var drone1 = drone.instantiate()
-	get_tree().current_scene.add_child(drone1)
-	drone1.position = final_position
-	
-
+	deployed_drone = drone.instantiate()
+	get_tree().current_scene.add_child(deployed_drone)
+	deployed_drone.position = final_position
 
 func change_mask(new_mask) -> void:
 	if change_cooldown != 0:
