@@ -86,6 +86,11 @@ script = ExtResource("7_4ph7v")
 [node name="Acoustic" type="Node" parent="StateMachine"]
 script = ExtResource("6_kuc5t")
 
+[node name="DroneSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://c0j3wapcayxjq")
+spawn_path = NodePath(".")
+spawn_limit = 3
+
 [connection signal="area_entered" from="PlayerDetectorArea" to="." method="_on_player_detector_area_entered"]
 [connection signal="area_exited" from="PlayerDetectorArea" to="." method="_on_player_detector_area_exited"]
 [connection signal="body_entered" from="PlayerDetectorArea" to="." method="_on_player_detected"]
