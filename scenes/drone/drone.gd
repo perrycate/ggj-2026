@@ -10,7 +10,10 @@ const CHASE_SPEED: float = 80.0
 const LIFE_TIME: float = 3.0
 
 func _ready() -> void:
-	pass
+	if !is_multiplayer_authority():
+		set_process(false)
+		set_physics_process(false)
+		set_process_input(false)
 
 func _process(delta: float) -> void:
 	life_timer = clampf(life_timer - delta, 0.0, LIFE_TIME)
