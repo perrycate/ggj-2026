@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bm0nx058xtv3u"]
+[gd_scene load_steps=11 format=3 uid="uid://bm0nx058xtv3u"]
 
 [ext_resource type="Script" uid="uid://dymmxukap3338" path="res://scenes/watcher/watcher.gd" id="1_mrnq6"]
+[ext_resource type="Texture2D" uid="uid://bp56wnkkau1cj" path="res://art/crappy_minimap.png" id="2_ge30l"]
 [ext_resource type="Script" uid="uid://d115hcpw86va2" path="res://scripts/watcher/watcher_state_machine.gd" id="2_ilq2x"]
 [ext_resource type="Script" uid="uid://tlk5xxkkue7f" path="res://scripts/watcher/controlling.gd" id="2_x80ag"]
 [ext_resource type="Script" uid="uid://bwdfw7madvuyd" path="res://scripts/watcher/switching.gd" id="3_ilq2x"]
@@ -39,16 +40,21 @@ shader_parameter/vignette_opacity = 0.5
 script = ExtResource("1_mrnq6")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_left = 190.0
-offset_top = -179.0
-offset_right = 2190.0
-offset_bottom = 1821.0
-scale = Vector2(0.064, 0.05)
+offset_left = 221.0
+offset_top = -181.0
+offset_right = 321.0
+offset_bottom = -81.0
+scale = Vector2(0.049114004, 0.04950888)
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(2000, 2000)
 render_target_update_mode = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+scale = Vector2(5, 5)
+texture = ExtResource("2_ge30l")
+centered = false
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_ilq2x")
