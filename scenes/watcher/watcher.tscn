@@ -42,15 +42,18 @@ script = ExtResource("1_mrnq6")
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_left = 190.0
 offset_top = -179.0
-offset_right = 702.0
-offset_bottom = 333.0
-scale = Vector2(0.24942558, 0.19197138)
+offset_right = 2190.0
+offset_bottom = 1821.0
+scale = Vector2(0.064, 0.05)
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+size = Vector2i(2000, 2000)
 render_target_update_mode = 4
 
-[node name="Test" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+[node name="MinimapCamera" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(36.105927, 39.277435)
+scale = Vector2(2.8052964, 4.9277434)
 texture = ExtResource("2_ge30l")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
