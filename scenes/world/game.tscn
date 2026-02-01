@@ -63,20 +63,20 @@ position = Vector2(1406, 987)
 position = Vector2(-322, 1218)
 
 [node name="JoinButton" type="Button" parent="."]
-offset_left = 96.0
-offset_top = 177.0
-offset_right = 159.0
-offset_bottom = 227.0
+offset_left = 126.0
+offset_top = 175.0
+offset_right = 189.0
+offset_bottom = 225.0
 theme_override_font_sizes/font_size = 30
-text = "Join"
+text = "Hide"
 
 [node name="HostButton" type="Button" parent="."]
-offset_left = 210.0
-offset_top = 164.0
-offset_right = 285.0
-offset_bottom = 214.0
+offset_left = 219.0
+offset_top = 175.0
+offset_right = 294.0
+offset_bottom = 225.0
 theme_override_font_sizes/font_size = 30
-text = "Host
+text = "Seek
 "
 
 [node name="Network" type="Node" parent="."]
