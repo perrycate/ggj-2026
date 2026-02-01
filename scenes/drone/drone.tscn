@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0j3wapcayxjq"]
+
+[ext_resource type="Texture2D" uid="uid://dg507172g1tff" path="res://art/drone.png" id="1_pae44"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ws74u"]
+
+[node name="Drone" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ws74u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pae44")
