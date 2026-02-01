@@ -21,11 +21,9 @@ func update(_delta: float):
 		transition.emit(self, "Switching", 1)
 	elif Input.is_action_pressed("previous_camera"):
 		transition.emit(self, "Switching", -1)
-	pass
 
 func physics_update(_delta: float):
 	watcher.global_position = watcher.get_current_camera().global_position
-	pass
 
 func attempt_mask_change(mask: String):
 	if active:
