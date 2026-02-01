@@ -3,6 +3,7 @@ class_name Camera
 
 var change_cooldown: float = 0
 var is_active: bool = false
+var minimap_icon = null
 
 @onready var state_machine = $StateMachine
 
@@ -39,6 +40,9 @@ func _physics_process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 
 	move_and_slide()
+
+	if minimap_icon:
+		minimap_icon.position = position
 
 func change_mask(new_mask) -> void:
 	if change_cooldown != 0:
