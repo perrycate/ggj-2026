@@ -26,19 +26,14 @@ const WATCHER_PEER_ID = 1
 func _enter_tree():
 	set_multiplayer_authority(WATCHER_PEER_ID)
 
+
+func _ready() -> void:
 	if !is_multiplayer_authority():
 		set_process(false)
 		set_physics_process(false)
 		set_process_input(false)
 
-func _ready() -> void:
-	pass
-
 func _process(delta: float) -> void:
-	if !is_multiplayer_authority():
-		# We _should_ have disabled processing and thus never get here.
-		# For reasons unclear, we are anyway.
-		return
 	change_cooldown = clampf(change_cooldown - delta, 0.0, CHANGE_COOLDOWN_MAX)
 
 	if Input.is_action_just_pressed("drone_deploy") and not deployed_drone and player_detected:
