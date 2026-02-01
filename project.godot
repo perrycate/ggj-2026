@@ -87,3 +87,4 @@ drone_deploy={
 2d_physics/layer_3="camera"
 2d_physics/layer_4="boxes"
 2d_physics/layer_5="camera_spotlight"
+2d_physics/layer_6="drone"
