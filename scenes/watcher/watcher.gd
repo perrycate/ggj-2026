@@ -22,5 +22,7 @@ func _ready() -> void:
 		minimap.add_child(mc)
 		camera.minimap_icon = mc
 
+	get_current_camera().activate()
+
 func get_current_camera() -> Camera:
 	return camera_list[current_camera_idx]

@@ -7,12 +7,12 @@ func _read() -> void:
 func enter(_message):
 	super(_message)
 	# CT: allow the camera to move
-	watcher.get_current_camera().is_active = true  
+	watcher.get_current_camera().activate()
 
 func exit():
 	super()
 	# CT: stop the camera from moving
-	watcher.get_current_camera().is_active = false
+	watcher.get_current_camera().deactivate()
 
 func update(_delta: float):
 	# CT: needs to check for input to switch cameras

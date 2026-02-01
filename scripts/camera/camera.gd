@@ -50,3 +50,16 @@ func change_mask(new_mask) -> void:
 
 	if state_machine.transition_mask(new_mask):
 		change_cooldown = CHANGE_COOLDOWN_MAX
+
+func activate() -> void:
+	is_active = true
+	if minimap_icon:
+		# TODO: Decent icon instead of just changing color.
+		minimap_icon.modulate = Color(1, 0, 0)
+
+func deactivate() -> void:
+	is_active = false
+	if minimap_icon:
+		# Back to white.
+		minimap_icon.modulate = Color(1, 1, 1)
+	
